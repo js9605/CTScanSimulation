@@ -2,7 +2,6 @@ import numpy as np
 from scipy import misc
 from matplotlib import pyplot as plt
 
-# img = misc.imread("kropka.jpg")
 # print(img.__class__)                  # wyswietli numpy.ndarray
 # print(img.shape)                      # rozmiar tablicy numpyego (512,512)
 # print(img.dtype)                      # dane w tablicy (uint8)
@@ -12,51 +11,40 @@ from matplotlib import pyplot as plt
 # print(img[:,0][0][0])                   # pierwszy wyraz w tym wierszu
 
 
-def wyswietl_obraz_w_macierzy():
 
-    # nazwa_pliku = input("Podaj nazwe pliku z rozszerzeniam: ")
-    nazwa_pliku = "kropka.jpg"
-    img = misc.imread(nazwa_pliku)
-    pamiec = []
-    for i in range(len(img[:,0][:])):       # leci po wierszach
-        pamiec.append([])                   # tworzy miejsce na zapisanie danych do kolorowania
-        # print(img[0:,i][i])                # Wyswietli cala macierz
-
-        for j in range(len(img[:,0][i])):   # leci po poszczegolnych elementach wiersza
-            print(img[:,0][i][j])           # wyswiettla kazdy element macierzy
-
-            if img[:,0][i][j] == 0:         # wyswietla tylko elementy rowne 0
-                # print(img[:, 0][i][j])
-                pass
 
 class Ct:
 
+    def __init__(self):
+        self.filename  = "dot_square.png"
+        self.img = misc.imread(self.filename)
 
-    def read_row(self):                  # zczytuje ile jest zer w wierszu
+    def read_row(self):
+        rays_detected = []
+        for i in range(len(self.img[:, 0])):
+            index = 0
+            for j in range(len(self.img[:, 0][i])):
+                if self.img[:, 0][i][j] == 0:
+                    index += 1
+            rays_detected.append(index)
 
-        nazwa_pliku = "kropka.jpg"
-        img = misc.imread(nazwa_pliku)
-        pamiec = []
-        for i in range(len(img[:, 0])):    # len 31
-            indeks = 0
-            for j in range(len(img[:, 0][i])):  # len 4
-                if img[:, 0][i][j] == 0:
-                    indeks += 1
-            pamiec.append(indeks)
+        return rays_detected[:]
 
-        return pamiec[:]
+    #  only for square pictures
+    def read_angle45(self):
+        # sum_first_diagonal = sum(a[i][i] for i in range(n))
 
-
-    def draw_ct(self):
-
-        img = 0
-        misc.imsave("3.jpg", img)  # ZApisuje obrazek
+        rays_detected = []
+        matrix_size = len(self.img)
+        for i in range(matrix_size):
+            for j in range(matrix_size,0,-1):
+                print(i)
 
 
-# zczytaj_macierz()
+
+        return rays_detected[:]
+
+
 ct = Ct()
-pamiec = ct.read_row()
+pamiec = ct.read_angle45()
 print(pamiec)
-
-
-# misc.imsave("3.jpg", img) # ZApisuje obrazek
