@@ -1,6 +1,11 @@
 # licentiate
-Całe moje programowanie do licencjatu
+My whole diploma 
 
 26.03
 
-- Zczytanie macierzy i zapisanie jej do listy jako wartości zer w kolejnych wierszach
+- Reading the matrix and saving  its number of pixels in horizontal rows
+
+29.03
+
+- Fixed reading number of pixels bug
+- Reading the matrix and saving  its number of pixels in 45 angle (probably counts badly - for verification)
