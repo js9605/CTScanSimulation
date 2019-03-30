@@ -13,3 +13,4 @@ My whole diploma
 30.03
 
 - read_45angle function starts from the top right corner
+- read middle diagonal (left to right)
