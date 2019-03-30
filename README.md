@@ -9,3 +9,7 @@ My whole diploma
 
 - Fixed reading number of pixels bug
 - Reading the matrix and saving  its number of pixels in 45 angle (probably counts badly - for verification)
+
+30.03
+
+- read_45angle function starts from top right corner
