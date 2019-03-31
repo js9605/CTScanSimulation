@@ -19,14 +19,14 @@ img = misc.imread(filename)
 
 # print(img[9][0])
 
-
 class Computer_tomography:
 
     def __init__(self):
-        self.filename  = "flat.jpg"
+        self.filename  = "top_right_square.jpg"
         self.img = misc.imread(self.filename)
 
-    def read_(self):
+    # left to right
+    def read_row_leftToRight(self):
         rays_detected = []
         for row in range(len(self.img)):       #
             index = 0
@@ -38,22 +38,41 @@ class Computer_tomography:
         return rays_detected[:]
 
     # square matrix only
-    def read_45angle(self):
+    def read_45angle_fromTopRight(self):
         rays_detected = []
+
+        # rays_detected - from top right corner
         for col in range(len(self.img) - 1, -1, -1):
+            print("NOWE COL----------------------")
             row = 0
             index = 0
-            print("---------------------")
-            for row in range((len(self.img) - 1) - col):    # 10 - 1 - [9,8,7]
+            for row in range((len(self.img)-1) - col):    # 10 - 1 - [9,8,7]
                 col += 1
+                print("for row: ", row, col)
                 if sum(self.img[row][col]) == 0:
-                    print(row,col)
+                    print("if: ", row,col)
                     index += 1
-                rays_detected.append(index)
-                # print(row,col)
+
+            rays_detected.append(index)
+
+        del rays_detected[0]
+
+        # rays_detected - diagonal (left to right)
+        # index = 0
+        # for i in range(len(img)):
+        #     if sum(self.img[i][i]) == 0:
+        #         index += 1
+        # rays_detected.append(index)
+
+        # rays_detected - from diagonal to the bottom left
+        # for i in range(len(img)):
+        #     pass
+
+
+
         return rays_detected[:]
 
 
 ct = Computer_tomography()
-pamiec = ct.read_45angle()
+pamiec = ct.read_45angle_fromTopRight()
 print(pamiec)
