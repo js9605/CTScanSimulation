@@ -15,3 +15,7 @@ My whole diploma
 - read_45angle function starts from the top right corner
 - read middle diagonal (left to right)
 - Created Testing file for bux fix
+
+02.04
+
+- read_45angle function ready
