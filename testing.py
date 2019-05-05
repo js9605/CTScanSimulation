@@ -112,24 +112,23 @@ class Computer_tomography:
 
         # after diagonal
         col = len(list) - 1
-        # for row in range(1,len(list) - 1):      # (0-9)
-        #     print("NEXT ROW")
-        #     index = 0
-        #     for j in range(len(list) - 1):
-        #         print(row + j,col - j)
-
-        for j in range(len(list) - 1):
+        for row in range(1,len(list)):
+            # print("NEXT ROW")
             index = 0
-            print("NEXT ROW")
-            for row in range(1,len(list)):
-                print(row + j, col - j)
+            for j in range(len(list)):
+                if row + j == len(list):
+                    break
+                # print(row + j,col - j)
+                if sum(self.img[row + j][col - j]) <= 50:
+                    index += 1
+            rays_detected.append(index)
 
         return rays_detected
 
 
 ct = Computer_tomography()
 memory = ct.TopRight()
-# print(memory)
+print(memory)
 
 
 
