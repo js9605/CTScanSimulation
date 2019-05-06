@@ -21,6 +21,83 @@ import math
 
 
 # ------------------------------------------------------------------------------------------
+
+class Bresenham:
+
+    def __init__(self):
+        self.filename  = "graphic_for_testing.jpg"
+        self.img = misc.imread(self.filename)
+        self.rays_detected = []
+        self.x = []
+        self.y = []
+        # end point
+        self.x2 = len(self.img[0]) - 1
+        self.y2 = len(self.img) - 1
+
+        for i in range(len(self.img)):
+            self.x.append(0)
+        for i in range(1,len(self.img)):
+            self.x.append(i)
+        for i in range(len(self.img) - 1 ,0,-1):
+            self.y.append(i)
+        for i in range(len(self.img)):
+            self.y.append(0)
+
+
+    def read(self):
+
+        # for angle < 45
+        for i in range(len(self.img)):
+            index = 0
+
+            # starting points in Bresenham algorithm
+            self.x1 = self.x[i]
+            self.y1 = self.y[i]
+
+            if self.x1 <= self.x2:                          # K01
+                self.kx = 1     # step x
+            else:
+                self.kx = -1
+            if self.y1 <= self.y2:                          # K02
+                self.ky = 1
+            else:
+                self.ky = -1
+
+            self.dx = int(math.fabs(self.x2 - self.x1))  # absolute value  #K03
+            self.dy = int(math.fabs(self.y2 - self.y1))  # absolute value  # K04
+
+            if sum(self.img[self.x1][self.y1]) <= 50:       # K05
+                index += 1
+
+            if self.dx < self.dy:                           # K06
+                # for angle > 45
+                self.e = self.dy / 2                        # k16
+                for _ in range(self.dy):                    # K17
+                    self.y1 = self.y1 + self.ky             # k18
+                    self.e = self.e - self.dx               # k19
+                    if self.e >= 0:                         # k20
+                        if sum(self.img[self.x1][self.y1]) <= 50:  # k23
+                            index += 1
+                    else:
+                        self.x1 = self.x1 + self.kx         # k21
+                        self.e = self.e + self.dy           # k22
+            else:
+                self.e = self.dx / 2      # error expression # k07
+                for _ in range(self.dx):                      # k08
+                    self.x1 = self.x1 + self.kx
+                    self.e = self.e - self.dy               # k10
+                    if self.e >= 0:                         # K11
+                        if sum(self.img[self.x1][self.y1]) <= 50:  # k14
+                            index += 1
+                    else:
+                        self.y1 = self.y1 + self.ky         # K12
+                        self.e = self.e + self.dx           # K13
+
+
+        self.rays_detected.append(index)
+        print(self.rays_detected)
+
+
 # square matrix only
 class Computer_tomography:
 
@@ -51,7 +128,7 @@ class Computer_tomography:
 
 
     # ray goes from top left corner
-    def TopLeft(self):
+    def topLeft(self):
         rays_detected = []
 
         # rays_detected - from top right corner
@@ -90,7 +167,7 @@ class Computer_tomography:
         del rays_detected[-1]
         return rays_detected[:]
 
-    def TopRight(self):
+    def topRight(self):
         list = []
         tsil = []
 
@@ -126,9 +203,12 @@ class Computer_tomography:
         return rays_detected
 
 
-ct = Computer_tomography()
-memory = ct.TopRight()
-print(memory)
+# ct = Computer_tomography()
+# memory = ct.topRight()
+
+bresenham = Bresenham()
+bresenham.read()
+
 
 
 
