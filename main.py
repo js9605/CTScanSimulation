@@ -3,6 +3,10 @@ from scipy import misc
 from matplotlib import pyplot as plt
 import math
 
+# COMMENTS
+# Try to make "TopLeft" part as simple as "TopRight"
+
+# ------------------------------------------------------------------------------------------
 # square matrix only
 class Computer_tomography:
 
@@ -35,6 +39,7 @@ class Computer_tomography:
     def TopLeft(self):
         rays_detected = []
 
+        # rays_detected - from top right corner
         for col in range(len(self.img) - 1, -1, -1):
             index = 0
             for row in range((len(self.img)-1) - col):    # 10 - 1 - [9,8,7]
@@ -50,6 +55,7 @@ class Computer_tomography:
                 index += 1
         rays_detected.append(index)
 
+        # rays_detected - from top right corner
         for row in range(len(self.img) - 1, -1, -1):  # [9 8 7 ]
             index = 0
             for col in range((len(self.img)-1) - row):    # 10 - 1 - [9,8,7]     [0,1,2]
@@ -76,8 +82,8 @@ class Computer_tomography:
         for i in range(len(self.img)):
             list.append(i)
 
-        for i in range(len(self.img)):
-            tsil.append(list[-i])
+        for i in range(len(self.img) - 1,-1,-1):
+            tsil.append(i)
 
         rays_detected = []
         row = 0
@@ -88,8 +94,21 @@ class Computer_tomography:
                 if sum(self.img[row + j][col - j]) <= 50:
                     index += 1
             rays_detected.append(index)
-        return rays_detected
 
+        # after diagonal
+        col = len(list) - 1
+        for row in range(1,len(list)):
+            # print("NEXT ROW")
+            index = 0
+            for j in range(len(list)):
+                if row + j == len(list):
+                    break
+                # print(row + j,col - j)
+                if sum(self.img[row + j][col - j]) <= 50:
+                    index += 1
+            rays_detected.append(index)
+
+        return rays_detected
 
 
 ct = Computer_tomography()
